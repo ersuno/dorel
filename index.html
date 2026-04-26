@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dorel Tekstil | Aksesuar Kordon Uçlama</title>
+    <meta name="description" content="Dorel Tekstil - Ayakkabı bağcıkları, eşofman kordonları ve kordon uçlama çözümlerinde uzman üretim merkezi.">
     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         /* CSS STYLES */
         :root {
@@ -50,6 +53,13 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
         }
 
         .logo span {
@@ -198,8 +208,37 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
+            section {
+                padding: 60px 5%;
+            }
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1.1rem; padding: 0 15px; }
+            
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -208,6 +247,9 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">DOREL <span>TEKSTIL</span></div>
+        <div class="menu-toggle" id="mobile-menu" aria-label="Menüyü Aç">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Anasayfa</a></li>
             <li><a href="#products">Ürünler</a></li>
@@ -297,17 +339,18 @@
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
 
-        // Simple Navbar Scroll Effect
+        // Navbar Scroll Effect
         window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
